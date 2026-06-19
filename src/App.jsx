@@ -19,7 +19,7 @@ function PrivateRoute({ children }) {
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={import.meta.env.BASE_URL}>
       <Routes>
         <Route path="/auth" element={<AuthPage />} />
         <Route path="/" element={<PrivateRoute><Layout /></PrivateRoute>}>
