@@ -1,0 +1,91 @@
+@import 'leaflet/dist/leaflet.css';
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --green: #22c55e;
+  --green-dark: #16a34a;
+  --green-light: #dcfce7;
+  --dark: #0f172a;
+  --gray: #64748b;
+  --light: #f8fafc;
+  --border: #e2e8f0;
+  --white: #ffffff;
+  --red: #ef4444;
+  --yellow: #f59e0b;
+  --radius: 12px;
+  --shadow: 0 2px 12px rgba(0,0,0,0.08);
+  --shadow-lg: 0 8px 32px rgba(0,0,0,0.12);
+}
+
+body {
+  font-family: -apple-system, 'Inter', BlinkMacSystemFont, sans-serif;
+  color: var(--dark); background: var(--light);
+  line-height: 1.5; -webkit-font-smoothing: antialiased;
+}
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; }
+input, select, textarea { font-family: inherit; }
+
+.btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+  padding: 11px 22px; border-radius: var(--radius); font-size: 0.9rem;
+  font-weight: 600; border: none; transition: all 0.15s; white-space: nowrap;
+}
+.btn-primary { background: var(--green); color: white; }
+.btn-primary:hover { background: var(--green-dark); transform: translateY(-1px); box-shadow: 0 4px 14px rgba(34,197,94,0.3); }
+.btn-primary:disabled { background: #cbd5e1; cursor: not-allowed; transform: none; box-shadow: none; }
+.btn-secondary { background: var(--white); color: var(--dark); border: 1.5px solid var(--border); }
+.btn-secondary:hover { border-color: var(--green); color: var(--green); }
+.btn-ghost { background: transparent; color: var(--gray); border: none; }
+.btn-ghost:hover { background: var(--light); color: var(--dark); }
+.btn-danger { background: #fee2e2; color: var(--red); border: none; }
+.btn-danger:hover { background: var(--red); color: white; }
+.btn-lg { padding: 14px 28px; font-size: 1rem; }
+.btn-sm { padding: 7px 14px; font-size: 0.8rem; }
+.btn-full { width: 100%; }
+
+.form-group { margin-bottom: 16px; }
+.form-label { display: block; font-size: 0.8rem; font-weight: 600; color: var(--gray); margin-bottom: 6px; }
+.form-input {
+  width: 100%; padding: 11px 14px; border: 1.5px solid var(--border);
+  border-radius: var(--radius); font-size: 0.9rem; color: var(--dark);
+  background: white; outline: none; transition: border-color 0.15s;
+}
+.form-input:focus { border-color: var(--green); }
+.form-error { font-size: 0.78rem; color: var(--red); margin-top: 4px; }
+
+.card { background: white; border: 1px solid var(--border); border-radius: 16px; overflow: hidden; transition: box-shadow 0.15s; }
+.card:hover { box-shadow: var(--shadow); }
+
+.badge { display: inline-flex; align-items: center; gap: 4px; padding: 3px 10px; border-radius: 20px; font-size: 0.75rem; font-weight: 600; }
+.badge-green { background: var(--green-light); color: var(--green-dark); }
+.badge-red { background: #fee2e2; color: var(--red); }
+.badge-gray { background: var(--light); color: var(--gray); }
+
+.spinner { width: 20px; height: 20px; border: 2px solid var(--border); border-top-color: var(--green); border-radius: 50%; animation: spin 0.6s linear infinite; }
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.page-loader { display: flex; align-items: center; justify-content: center; height: 100vh; flex-direction: column; gap: 12px; }
+
+.toast-container { position: fixed; bottom: 80px; left: 50%; transform: translateX(-50%); z-index: 9999; display: flex; flex-direction: column; gap: 8px; align-items: center; pointer-events: none; }
+.toast { background: var(--dark); color: white; padding: 12px 20px; border-radius: 10px; font-size: 0.9rem; font-weight: 500; box-shadow: var(--shadow-lg); animation: toastIn 0.25s ease; }
+.toast.success { background: var(--green-dark); }
+.toast.error { background: var(--red); }
+@keyframes toastIn { from { opacity:0; transform: translateY(12px); } to { opacity:1; transform: translateY(0); } }
+
+.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,0.45); display: flex; align-items: flex-end; justify-content: center; z-index: 500; padding: 0; }
+@media (min-width: 600px) { .modal-overlay { align-items: center; padding: 16px; } }
+.modal { background: white; border-radius: 20px 20px 0 0; padding: 28px; width: 100%; max-width: 460px; max-height: 90vh; overflow-y: auto; animation: slideUp 0.22s ease; }
+@media (min-width: 600px) { .modal { border-radius: 20px; } }
+@keyframes slideUp { from { transform: translateY(24px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+.modal-title { font-size: 1.15rem; font-weight: 800; margin-bottom: 4px; }
+.modal-sub { font-size: 0.85rem; color: var(--gray); margin-bottom: 20px; }
+
+.divider { height: 1px; background: var(--border); margin: 16px 0; }
+
+.empty-state { text-align: center; padding: 48px 24px; color: var(--gray); }
+.empty-state-icon { font-size: 3rem; margin-bottom: 12px; }
+.empty-state h3 { font-size: 1rem; font-weight: 700; color: var(--dark); margin-bottom: 6px; }
+
+.leaflet-container { z-index: 1; }
