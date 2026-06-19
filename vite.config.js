@@ -17,8 +17,8 @@ export default defineConfig({
         background_color: '#ffffff',
         display: 'standalone',
         orientation: 'portrait',
-        scope: '/',
-        start_url: '/',
+        scope: '/neighborrent/',
+        start_url: '/neighborrent/',
         lang: 'uk',
         icons: [
           {
