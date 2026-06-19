@@ -10,6 +10,7 @@ import ProfilePage from './pages/ProfilePage'
 import RequestsPage from './pages/RequestsPage'
 import NotFoundPage from './pages/NotFoundPage'
 import SuccessPage from './pages/SuccessPage'
+import ResetPasswordPage from './pages/ResetPasswordPage'
 
 function PrivateRoute({ children }) {
   const { user, loading } = useAuth()
@@ -22,6 +23,7 @@ export default function App() {
     <BrowserRouter basename={import.meta.env.BASE_URL}>
       <Routes>
         <Route path="/auth" element={<AuthPage />} />
+        <Route path="/reset-password" element={<ResetPasswordPage />} />
         <Route path="/" element={<PrivateRoute><Layout /></PrivateRoute>}>
           <Route index element={<BrowsePage />} />
           <Route path="item/:id" element={<ItemPage />} />

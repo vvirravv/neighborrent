@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { supabase } from '../lib/supabase'
 import { useAuth } from '../context/AuthContext'
 
 const ERROR_MAP = {
@@ -58,6 +59,25 @@ export default function AuthPage() {
     }
   }
 
+  async function handleForgot(e) {
+    e.preventDefault()
+    if (!email) { setError('Введи email вище'); return }
+    setError('')
+    setLoading(true)
+
+    const { error } = await supabase.auth.resetPasswordForEmail(email, {
+      redirectTo: 'https://vvirravv.github.io/neighborrent/reset-password',
+    })
+    setLoading(false)
+
+    if (error) {
+      setError(translateError(error.message))
+    } else {
+      setInfo('✉️ Лист зі скиданням пароля надіслано на ' + email)
+      setMode('login')
+    }
+  }
+
   return (
     <div style={{
       minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -82,7 +102,7 @@ export default function AuthPage() {
             {['login', 'signup'].map(m => (
               <button
                 key={m}
-                onClick={() => { setMode(m); setError('') }}
+                onClick={() => { setMode(m); setError(''); setInfo('') }}
                 className={m === mode ? 'btn btn-primary' : 'btn btn-secondary'}
                 style={{ flex: 1 }}
               >
@@ -119,7 +139,21 @@ export default function AuthPage() {
             </div>
 
             <div className="form-group">
-              <label className="form-label">Пароль</label>
+              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
+                <label className="form-label" style={{ marginBottom: 0 }}>Пароль</label>
+                {mode === 'login' && (
+                  <button
+                    type="button"
+                    onClick={handleForgot}
+                    style={{
+                      background: 'none', border: 'none', cursor: 'pointer',
+                      fontSize: '0.8rem', color: 'var(--green-dark)', fontWeight: 600, padding: 0
+                    }}
+                  >
+                    Забули пароль?
+                  </button>
+                )}
+              </div>
               <div style={{ position: 'relative' }}>
                 <input
                   className="form-input"
